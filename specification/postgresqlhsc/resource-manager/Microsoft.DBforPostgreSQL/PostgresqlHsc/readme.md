@@ -27,9 +27,18 @@ These are the global settings for the Cosmos DB for PostgreSQL API.
 ``` yaml
 title: Cosmos DB for PostgreSQL
 openapi-type: arm
-tag: package-preview-2023-03
+tag: package-preview-2026-02
 ```
 
+
+### Tag: package-preview-2026-02
+
+These settings apply only when `--tag=package-preview-2026-02` is specified on the command line.
+
+```yaml $(tag) == 'package-preview-2026-02'
+input-file:
+  - preview/2026-02-06-preview/postgresqlhsc.json
+```
 
 ### Tag: package-preview-2023-03
 

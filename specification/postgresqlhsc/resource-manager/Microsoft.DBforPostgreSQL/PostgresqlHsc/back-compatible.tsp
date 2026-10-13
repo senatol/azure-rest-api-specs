@@ -6,6 +6,9 @@ using Microsoft.DBforPostgreSQL;
 @@clientName(Clusters.promoteReadReplica::parameters.body, "promoteRequest");
 @@clientName(Clusters.create::parameters.resource, "parameters");
 @@clientName(Clusters.update::parameters.properties, "parameters");
+@@clientName(Clusters.migrate::parameters.body, "parameters");
+@@clientName(AutoMigrations.update::parameters.properties, "parameters");
+@@clientName(MigrateRequest, "MigrateContent", "csharp");
 @@clientName(
   ClustersOperationGroup.checkNameAvailability::parameters.body,
   "nameAvailabilityRequest"
@@ -52,6 +55,20 @@ using Microsoft.DBforPostgreSQL;
 
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "@flattenProperty decorator is not recommended to use."
 @@Azure.ClientGenerator.Core.Legacy.flattenProperty(Cluster.properties);
+
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Preserve x-ms-client-flatten in the migration contract."
+@@Azure.ClientGenerator.Core.Legacy.flattenProperty(MigrateRequest.properties);
+
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Preserve x-ms-client-flatten in the migration contract."
+@@Azure.ClientGenerator.Core.Legacy.flattenProperty(Migration.properties);
+
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Preserve x-ms-client-flatten in the migration contract."
+@@Azure.ClientGenerator.Core.Legacy.flattenProperty(AutoMigration.properties);
+
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "Preserve x-ms-client-flatten in the migration contract."
+@@Azure.ClientGenerator.Core.Legacy.flattenProperty(
+  AutoMigrationForUpdate.properties
+);
 
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "@flattenProperty decorator is not recommended to use."
 @@Azure.ClientGenerator.Core.Legacy.flattenProperty(ClusterServer.properties);

@@ -14,6 +14,8 @@ import "@azure-tools/typespec-azure-resource-manager";
 import "./models.tsp";
 import "./back-compatible.tsp";
 import "./Cluster.tsp";
+import "./Migration.tsp";
+import "./AutoMigration.tsp";
 import "./Configuration.tsp";
 import "./ServerConfiguration.tsp";
 import "./FirewallRule.tsp";
@@ -48,6 +50,12 @@ enum Versions {
    * The 2023-03-02-preview API version.
    */
   v2023_03_02_preview: "2023-03-02-preview",
+
+  /**
+   * The 2026-02-06-preview API version.
+   */
+  @Azure.Core.previewVersion
+  v2026_02_06_preview: "2026-02-06-preview",
 }
 
 interface Operations extends Azure.ResourceManager.Operations {}

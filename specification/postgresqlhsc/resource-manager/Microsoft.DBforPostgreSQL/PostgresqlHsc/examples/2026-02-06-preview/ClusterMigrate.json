@@ -1,0 +1,46 @@
+{
+  "operationId": "Clusters_Migrate",
+  "title": "Migrate the cluster to an elastic cluster",
+  "parameters": {
+    "api-version": "2026-02-06-preview",
+    "subscriptionId": "ffffffff-ffff-ffff-ffff-ffffffffffff",
+    "resourceGroupName": "TestGroup",
+    "clusterName": "testcluster1",
+    "parameters": {
+      "properties": {
+        "targetResourceId": "/subscriptions/ffffffff-ffff-ffff-ffff-ffffffffffff/resourceGroups/TestGroup/providers/Microsoft.DBforPostgreSQL/flexibleServers/targetcluster",
+        "waitHa": true,
+        "dryRun": false
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "properties": {
+          "flexName": "targetcluster",
+          "flexResourceGroup": "TestGroup",
+          "flexSubscription": "ffffffff-ffff-ffff-ffff-ffffffffffff",
+          "waitHa": true,
+          "provisioningState": "InProgress"
+        }
+      }
+    },
+    "202": {
+      "headers": {
+        "Azure-AsyncOperation": "https://management.azure.com/subscriptions/ffffffff-ffff-ffff-ffff-ffffffffffff/providers/Microsoft.DBforPostgreSQL/locations/southeastasia/azureAsyncOperation/e276a03a-1770-4549-86f5-0edffae8997c?api-version=2026-02-06-preview",
+        "Location": "https://management.azure.com/subscriptions/ffffffff-ffff-ffff-ffff-ffffffffffff/providers/Microsoft.DBforPostgreSQL/locations/southeastasia/operationResults/e276a03a-1770-4549-86f5-0edffae8997c?api-version=2026-02-06-preview",
+        "Retry-After": 10
+      },
+      "body": {
+        "properties": {
+          "flexName": "targetcluster",
+          "flexResourceGroup": "TestGroup",
+          "flexSubscription": "ffffffff-ffff-ffff-ffff-ffffffffffff",
+          "waitHa": true,
+          "provisioningState": "InProgress"
+        }
+      }
+    }
+  }
+}

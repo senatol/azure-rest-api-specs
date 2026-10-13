@@ -2,12 +2,14 @@ import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 import "@typespec/openapi";
 import "@typespec/rest";
+import "@typespec/versioning";
 import "./models.tsp";
 
 using TypeSpec.Rest;
 using Azure.ResourceManager;
 using TypeSpec.Http;
 using TypeSpec.OpenAPI;
+using TypeSpec.Versioning;
 
 namespace Microsoft.DBforPostgreSQL;
 /**
@@ -130,6 +132,35 @@ interface Clusters {
     OkResponse,
     LroHeaders = ArmAsyncOperationHeader & ArmLroLocationHeader
   >;
+
+  /**
+   * Checks whether the cluster can be migrated to an Azure Database for PostgreSQL elastic cluster (flexible server).
+   */
+  @added(Versions.v2026_02_06_preview)
+  checkMigrationValidity is ArmResourceActionSync<
+    Cluster,
+    void,
+    ArmResponse<MigrationValidityResult>
+  >;
+
+  /**
+   * Migrates the cluster to an Azure Database for PostgreSQL elastic cluster (flexible server).
+   */
+  #suppress "@azure-tools/typespec-azure-resource-manager/no-response-body" "The service returns a Migration body with 202 when migration starts."
+  @added(Versions.v2026_02_06_preview)
+  @Azure.Core.useFinalStateVia("location")
+  migrate is ArmResourceActionAsyncBase<
+    Cluster,
+    MigrateRequest,
+    | ArmResponse<Migration>
+    | (ArmAcceptedLroResponse<LroHeaders = ArmCombinedLroHeaders<FinalResult = Migration> &
+        Azure.Core.Foundations.RetryAfterHeader> & {
+        /** The migration that was accepted. */
+        @bodyRoot
+        body: Migration;
+      }),
+    BaseParameters = Azure.ResourceManager.Foundations.DefaultBaseParameters<Cluster>
+  >;
 }
 
 @@maxLength(Cluster.name, 40);
@@ -147,4 +178,8 @@ interface Clusters {
 @@doc(
   Clusters.promoteReadReplica::parameters.body,
   "The parameter for enabling geo-redundant backup while promoting read replica."
+);
+@@doc(
+  Clusters.migrate::parameters.body,
+  "The parameters for migrating the cluster."
 );

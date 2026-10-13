@@ -1,0 +1,18 @@
+{
+  "operationId": "Clusters_CheckMigrationValidity",
+  "title": "Check migration validity of a cluster that cannot be migrated",
+  "parameters": {
+    "api-version": "2026-02-06-preview",
+    "subscriptionId": "ffffffff-ffff-ffff-ffff-ffffffffffff",
+    "resourceGroupName": "TestGroup",
+    "clusterName": "testcluster1"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "validated": false,
+        "message": "The cluster is not ready for migration."
+      }
+    }
+  }
+}
